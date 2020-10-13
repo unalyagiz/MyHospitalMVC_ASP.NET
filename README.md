@@ -19,4 +19,23 @@ Back at the creation of database,i had not fill the tables just created it.So,I 
 ## Week 3
 At the third week of my internship,I needed to create a web-page for inserting data to database just like any program that involved database.I have started to create my View for inserting Doctors to database.For using properties of the object,it is needed to import the MODEL to VIEW.Then I used html helper methods to create textbox for properties of the model.There is one framework for JavaScript which is called JQUERY.I used that framework for Client-Side validation.But it is not safe all the time if the user is somehow able to deactivate the JavaScript from browser then database might be filled with spam data.(For adding doctor you need to have a authorization of admin so that’s not the case for that situation but I also added the validation to adding patient VIEW which I will mention later.)So I needed to provide also Server-Side validation.I used a method called ModelState.IsValid which controls the model has any validation error and if it has not then it will return true so that way I am able to save the data into database.
 
-<img src="https://github.com/unalyagiz/MyHospitalMVC_ASP.NET/blob/master/trunk/images/1.png" width="450" height="250"/>
+<img src="https://github.com/unalyagiz/MyHospitalMVC_ASP.NET/blob/master/trunk/images/1.png" width="600" height="250"/>
+I had created branches table for keep the branches in one table with their IDs and names so that information can not be lost.Profession property is a select list item and returns id of Branches,if the id matches with in the database then doctors branch is set it to that branch.Doctors have branches and I had created relations between Doctor and Branch that way.
+
+<img src="https://github.com/unalyagiz/MyHospitalMVC_ASP.NET/blob/master/trunk/images/2.png" width="600" height="250"/>
+<img src="https://github.com/unalyagiz/MyHospitalMVC_ASP.NET/blob/master/trunk/images/3.png" width="600" height="250"/>
+
+I have successfully complete the add Doctor operation.So there has to be two other options which are deletion and editing.For that operations I needed to create a table of doctors to apply the operations and placed buttons.
+
+<img src="https://github.com/unalyagiz/MyHospitalMVC_ASP.NET/blob/master/trunk/images/4.png" />
+<img src="https://github.com/unalyagiz/MyHospitalMVC_ASP.NET/blob/master/trunk/images/5.png" width="600" height="250"/>
+
+When HttpPost method is triggered the page will reload and the ViewBag is no longer have any data so first I had the data in TempData and then passed it into ViewBag.
+
+<img src="https://github.com/unalyagiz/MyHospitalMVC_ASP.NET/blob/master/trunk/images/6.png" width="600" height="250"/>
+
+At the deletion operation,I wanted to display a MODAL to ask user “are you sure ?”.And if delete is selected then it will return the doctors id to Delete method with AJAX call.
+
+<img src="https://github.com/unalyagiz/MyHospitalMVC_ASP.NET/blob/master/trunk/images/7.png" />
+
+
