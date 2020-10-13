@@ -1,0 +1,174 @@
+﻿@using MyHospital.ViewModels
+@model  HomePageViewModel
+@{
+    ViewBag.Title = "homepage";
+}
+<div class="container-fluid">
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap.min.js"></script>
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <hr />
+            <h2 class="text-center text-danger">List of Doctors and Patients</h2>
+            <hr />
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-2"></div>
+        <div class="col-md-2">
+            @Html.ActionLink("New Doctor", "New", "Doctor", null, new { @class = "btn btn-info" })
+        </div>
+        <div class="col-md-2"></div>
+        <div class="col-md-2"></div>
+        <div class="col-md-2"> @Html.ActionLink("New Patient", "New", "Patient", null, new { @class = "btn btn-info" })</div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <br />
+            <ul class="list-group">
+                <li class="list-group-item active bg-secondary border-secondary">
+                    Doctors
+                </li>
+
+                @foreach (var doc in Model.doctors)
+                {
+                    <li class="list-group-item">
+                        <i class="fa fa-user-md fa-2x" aria-hidden="true"></i>&nbsp; &nbsp;@(doc.Name + " " + doc.Surname)(<i>
+                            @(doc.branc.Name)
+                        </i>)
+                    </li>
+                }
+            </ul>
+
+
+        </div>
+        <div class="col-md-6">
+
+            <br />
+            <ul class="list-group">
+                <li class="list-group-item active bg-secondary border-secondary">
+                    Patients
+                </li>
+                @foreach (var pat in Model.patients)
+                {
+                    <li class="list-group-item">
+                        <img src="~/icons/people-fill.svg" alt="" width="32" height="32" title="Bootstrap"> @(pat.Name + " " + pat.Surname) (<i>
+                            @("Dr." + pat.dr.Name + " " + pat.dr.Surname)
+                        </i>)
+                    </li>
+                }
+            </ul>
+        </div>
+
+    </div>
+    <br>
+    <div class="table-responsive table-bordered table-striped">
+        <input class="form-control border-dark" id="myInput" type="text" placeholder="Search for Doctor by Name,Surname or Profession..">
+        <table class="table">
+            <thead class="thead">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">FirstName</th>
+                    <th scope="col">LastName</th>
+                    <th scope="col">Profession</th>
+                    <th scope="col">Edit</th>
+                </tr>
+            </thead>
+            <tbody id="myTable">
+
+                @foreach (var doc in Model.doctors)
+                {
+                    <tr id="row_@doc.ID">
+                        <th scope="row">@doc.ID</th>
+                        <td>@doc.Name</td>
+                        <td>@doc.Surname</td>
+                        <td>@doc.branc.Name</td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", "Doctor", new { id = doc.ID }, new { @class = "btn btn-outline-success btn-sm" })
+                            <a href="#" class="btn btn-danger btn-sm " onclick="ConfirmDelete(@doc.ID)" data-toggle="modal" data-target="#exampleModal">Delete</a>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+
+        <input type="hidden" id="hiddenDoc"  />
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 style="color:red;"class="modal-title">Are you sure to delete this record?</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body" style="text-align:center;">
+                        
+                        <i id="loader" style="display:none;" class="fa fa-spinner fa-2x text-danger "></i>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#" class="btn btn-default" data-dismiss="modal">Cancel</a>
+                        <a href="#" class="btn btn-danger" onclick="DeleteDoc()">Delete</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#myInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    })
+
+    var ConfirmDelete = function (ID) {
+
+        $("#hiddenDoc").val(ID);
+        $("#myModal").modal('show');
+
+
+    }
+
+    var DeleteDoc = function () {
+
+        $("#loader").show();
+        var docID = $("#hiddenDoc").val();
+
+        $.ajax({
+
+            type: "POST",
+            url: "/Doctor/Delete",
+            data: { ID: docID },
+            success: function (result) {
+
+                $("#loader").hide();
+                $("#myModal").modal("hide");
+                $("#row_" + docID).remove();
+
+            }
+        })
+
+    }
+    
+
+</script>
+

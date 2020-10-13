@@ -1,0 +1,110 @@
+﻿
+@model MyHospital.Models.Patient
+@{
+    ViewBag.Title = "New";
+}
+
+<h2>New Patient</h2>
+<hr />
+
+<style>
+    .input-validation-error {
+        border-color: red;
+    }
+</style>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="container-fluid ">
+        <div class="row">
+            <div class="col-sm-4 col-xs-12 selectBox" style="margin-bottom: 10px;">
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                    </div>
+                    @Html.TextBoxFor(x => x.Name, new { @class = "form-control", placeholder = "Name", aria_describedby = "name" })
+                    @Html.ValidationMessageFor(x => x.Name, "", new { @class = "text-danger" })
+                </div>
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                    </div>
+                    @Html.TextBoxFor(x => x.Surname, new { @class = "form-control", placeholder = "Surname", aria_describedby = "Surname" })
+                    @Html.ValidationMessageFor(x => x.Surname, "", new { @class = "text-danger" })
+                </div>
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                    </div>
+                    @Html.TextBoxFor(x => x.TC, new { @class = "form-control", placeholder = "TC", aria_describedby = "TC" })
+                    @Html.ValidationMessageFor(x => x.TC, "", new { @class = "text-danger" })
+                </div>
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                    </div>
+                    @Html.DropDownListFor(x => x.disease, ViewBag.bra as SelectList, "--Select Branch--", new { @class = "form-control" })
+                </div>
+
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                    </div>
+                    @Html.DropDownListFor(x => x.branch, new SelectList(" "), "--Select Doctor--", new { @class = "form-control" })
+                </div>
+
+                <div class="input-group">
+                    <input type="submit" value="Submit" class="btn btn-info" />
+                </div>
+
+                <div>
+                    @if (ViewBag.Result != null)
+                    {
+                        <div class="alert alert-@ViewBag.Status" role="alert">
+                            @ViewBag.Result
+                        </div>
+                    }
+                </div>
+
+            </div>
+            <div class="col-sm-4 col-xs-12">
+
+             
+                @{
+                    Html.RenderAction("ShowCalender");
+                }
+
+
+
+
+            </div>
+            <div class="col-sm-4 col-xs-12">
+          
+               
+
+            </div>
+    </div>
+
+        </div>
+
+
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <link href="~/css/font-awesome.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.datetimepicker.js"></script>
+    <link href="~/Content/jquery.datetimepicker.css" rel="stylesheet" />
+    <script>
+        $(document).ready(function () {
+            $("#disease").change(function () {
+                $.get("/Patient/GetDoctor", { disease: $("#disease").val() }, function (data) {
+                    $("#branch").empty();
+                    $.each(data, function (index, row) {
+                        $("#branch").append("<option value='" + row.ID + "'>" +"Dr."+ row.Name +" " +row.Surname+ "</option>")
+                    });
+                });
+            })
+        });
+
+
+    </script>
+}
+
+
+

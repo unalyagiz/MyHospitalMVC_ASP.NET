@@ -1,0 +1,94 @@
+﻿@model  MyHospital.Models.Doctor
+@{
+    ViewBag.Title = "New";
+}
+<h2>Add Doctor</h2>
+<hr />
+<style>
+    .input-validation-error {
+        border-color: red;
+    }
+</style>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+<div class="container-fluid ">
+    <div class="col-sm-4 col-xs-12 selectBox" style="margin-bottom: 10px;">
+        <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend">
+            </div>
+            @Html.TextBoxFor(x => x.Name, new { @class = "form-control", placeholder = "Name", aria_describedby = "name" })
+            @Html.ValidationMessageFor(x => x.Name, "", new { @class = "text-danger" })
+
+        </div>
+        <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend">
+            </div>
+            @Html.TextBoxFor(x => x.Surname, new { @class = "form-control", placeholder = "Surname", aria_describedby = "Surname" })
+            @Html.ValidationMessageFor(x => x.Surname, "", new { @class = "text-danger" })
+        </div>
+        <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend">
+            </div>
+            @Html.DropDownListFor(x => x.profession, ViewBag.bra as SelectList, "--Select Branch--", new { @class = "form-control" })
+        </div>
+
+        <div class="input-group">
+            <input type="submit" id="sbmt" value="Submit" class="btn btn-info" />
+        </div>
+        <p></p>
+        <div class="input-group">
+            @if (ViewBag.Result != null)
+            {
+                <div class="alert alert-@ViewBag.Status" role="alert">
+                    @ViewBag.Result
+                </div>
+            }
+
+        </div>
+
+        
+    </div>
+   
+</div>
+    
+    @*<script type="text/javascript">
+        $(function () {
+            if (ViewBag.Result > 0) {
+                $("#sbmt").click(function () {
+                    $(this).attr("disabled", true);
+                    $(this).val("Submitted");
+                    $(this).removeClass();
+                    $(this).addClass("alert alert-success");
+                });
+            }
+            else {
+                break;
+            }
+        });
+    </script>
+    
+    <script type="text/javascript">
+        $(function () {
+            if (ViewBag.Result != null) {
+                $("#sbmt").attr("disabled", true);
+                $("#sbmt").val("Submitted");
+                $("#sbmt").removeClass();
+                $("#sbmt").addClass("alert alert-success");
+            }
+        });
+    </script>*@
+
+}
+
+
+
+
+
+
+
+

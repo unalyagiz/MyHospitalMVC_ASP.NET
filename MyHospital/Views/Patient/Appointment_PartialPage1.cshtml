@@ -1,0 +1,59 @@
+﻿@model MyHospital.Models.Appointment
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="input-group input-group-sm mb-3">
+    <div class="input-group-prepend">
+    </div>
+     @Html.DropDownList("dates",null,"--Select Date--", new { @class = "form-control" })    
+</div>
+
+    <div id="btn">
+        @foreach (var item in ViewBag.hours)
+        {
+
+            <a href="#" id="@item" class="btn">@item</a>
+
+        }
+    </div>
+
+
+    <script>
+        $(document).ready(function () {
+            $("#dates").change(function () {
+                $.get("/Patient/GetDate", { dates: $("#dates").val() }, function (data) {
+                    //$(document).find(":hidden").not("script");
+                    $('.btn').show();
+
+                    $.each(data, function (index, row) {
+
+                        var kk = row.time;
+                        var ar = kk.split(':');
+                        var r = +ar[0] + "\\\\:" + ar[1];
+                        //alert(r);
+                        //$("#12\\:00").remove();
+                        var f = document.getElementById(kk);
+                        //alert(f);
+                        $(f).hide();
+                        //f.remove();
+                        //$("#+'r'").remove();
+
+                    });
+
+                });
+            })
+
+
+
+        });
+    </script>
+
+
+
+
+
+
+
+    }
