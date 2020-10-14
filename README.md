@@ -28,14 +28,34 @@ I had created branches table for keep the branches in one table with their IDs a
 I have successfully complete the add Doctor operation.So there has to be two other options which are deletion and editing.For that operations I needed to create a table of doctors to apply the operations and placed buttons.
 
 <img src="https://github.com/unalyagiz/MyHospitalMVC_ASP.NET/blob/master/trunk/images/4.png" />
-<img src="https://github.com/unalyagiz/MyHospitalMVC_ASP.NET/blob/master/trunk/images/5.png" width="600" height="250"/>
+<img src="https://github.com/unalyagiz/MyHospitalMVC_ASP.NET/blob/master/trunk/images/5.png" />
 
 When HttpPost method is triggered the page will reload and the ViewBag is no longer have any data so first I had the data in TempData and then passed it into ViewBag.
 
-<img src="https://github.com/unalyagiz/MyHospitalMVC_ASP.NET/blob/master/trunk/images/6.png" width="600" height="250"/>
+<img src="https://github.com/unalyagiz/MyHospitalMVC_ASP.NET/blob/master/trunk/images/6.png" />
 
 At the deletion operation,I wanted to display a MODAL to ask user “are you sure ?”.And if delete is selected then it will return the doctors id to Delete method with AJAX call.
 
 <img src="https://github.com/unalyagiz/MyHospitalMVC_ASP.NET/blob/master/trunk/images/7.png" />
+
+## Week 4
+At the fourth week of my internship,I needed to create a form for patients.So I imported patient MODEL into VIEW and created textboxes and dropdowns for patient properties.In the dropdown list when the patient selects the particular branch,second dropdown will automatically filled with its doctors.
+
+<img src="https://github.com/unalyagiz/MyHospitalMVC_ASP.NET/blob/master/trunk/images/8.png" />
+
+This interaction is possible with JavaScript. I wrote down the following code to return the selected branch id to controller and compared with doctors table to return the lists of doctors.
+
+<img src="https://github.com/unalyagiz/MyHospitalMVC_ASP.NET/blob/master/trunk/images/9.png" />
+<img src="https://github.com/unalyagiz/MyHospitalMVC_ASP.NET/blob/master/trunk/images/10.png" />
+
+As I mentioned before I have applied Client-side and Server-Side validation to this form too.This is the result of Client-side validation by  JQUERY.It will detect the local language.(Turkish in this case)
+
+<img src="https://github.com/unalyagiz/MyHospitalMVC_ASP.NET/blob/master/trunk/images/11.png" width="300" height="250" />
+
+At the last days of my internship,I have created some buttons to represent the appointment hours.So in my PatientController I have created a method to pass the times of appointment to view.In patient view I have used partial view to show the appointment date and hours because I wanted date and time interactive with each other.
+My purpose was when the user clicks the doctor it will search into appointments of the selected doctor and shown the available hours.
+
+<img src="https://github.com/unalyagiz/MyHospitalMVC_ASP.NET/blob/master/trunk/images/11.png" width="300" height="250" />
+
 
 
