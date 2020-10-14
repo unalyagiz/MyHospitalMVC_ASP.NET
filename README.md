@@ -55,7 +55,7 @@ As I mentioned before I have applied Client-side and Server-Side validation to t
 At the last days of my internship,I have created some buttons to represent the appointment hours.So in my PatientController I have created a method to pass the times of appointment to view.In patient view I have used partial view to show the appointment date and hours because I wanted date and time interactive with each other.
 My purpose was when the user clicks the doctor it will search into appointments of the selected doctor and shown the available hours.
 </br>
-<img src="https://github.com/unalyagiz/MyHospitalMVC_ASP.NET/blob/master/trunk/images/12.png" />
+<img src="https://github.com/unalyagiz/MyHospitalMVC_ASP.NET/blob/master/trunk/images/12.png"   />
 
 
 
